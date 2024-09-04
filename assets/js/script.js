@@ -50,7 +50,7 @@ function ParEImpar() {
 function notasDeDezAlunos() {
     let notas = []
     let media = 0
-    for (i=1;i<=4;i++) {
+    for (i=1;i<=10;i++) {
         let soma = 0
         for (j=1;j<=4;j++) {
             let nota = parseFloat(prompt("Insira sua nota: "))
