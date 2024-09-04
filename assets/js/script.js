@@ -56,7 +56,7 @@ function notasDeDezAlunos() {
             let nota = parseFloat(prompt("Insira sua nota: "))
             soma += nota
         }
-        media = soma/4
+        media = soma/notas.length
         notas.push(media)
     }
     alert(`Alunos com media maior ou igual a 7: ${notas.filter(x => x >= 7).length}`)
