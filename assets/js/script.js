@@ -401,7 +401,7 @@ function carros() {
 }
 //22
 function suporte() {
-    let mouses = [];
+    let mouses = []
     let elementos = ["Necessita da esfera", "Necessita de limpeza", "Necessita troca de cabo", "Quebrado ou inutilizado"]
     while (true) {
         let mouse = parseInt(prompt("1 - Necessita da esfera\n2 - Necessita de limpeza\n3 - Necessita troca de cabo\n4 - Quebrado ou inutilizado\n\nSituação do mouse (0=fim):"));
@@ -413,7 +413,7 @@ function suporte() {
             alert("Insira um numero válido")
             continue
         }
-        if (mouse === 0) {
+        if (mouse == 0) {
             break;
         }
         mouses.push(mouse);
