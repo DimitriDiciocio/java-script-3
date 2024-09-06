@@ -1,7 +1,11 @@
 //1
 function umVetorCincoNumeros() {
+    let resposta;
     const vetor = [1,2,3,4,5]
-    alert(vetor)
+    for (items of vetor) {
+        resposta += items + "\n"
+    }
+    alert(resposta)
 }
 //2
 function dezReaisInverso() {
