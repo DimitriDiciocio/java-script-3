@@ -56,7 +56,7 @@ function notasDeDezAlunos() {
             let nota = parseFloat(prompt("Insira sua nota: "))
             soma += nota
         }
-        media = soma/notas.length
+        media = soma/4
         notas.push(media)
     }
     alert(`Alunos com media maior ou igual a 7: ${notas.filter(x => x >= 7).length}`)
@@ -402,7 +402,7 @@ function suporte() {
     while (true) {
         let mouse = parseInt(prompt("1 - Necessita da esfera\n2 - Necessita de limpeza\n3 - Necessita troca de cabo\n4 - Quebrado ou inutilizado\n\nSituação do mouse (0=fim):"));
         if (mouse > 4 || mouse < 0) {
-            alert("Informe um valor entre 1 e 4 ou 0 para sair!");  // Corrigi a mensagem de erro
+            alert("Informe um valor entre 1 e 4 ou 0 para sair!"); 
             continue;
         }
         if (isNaN(mouse)) {
@@ -432,47 +432,91 @@ function suporte() {
 
     alert("Resultado da votação:\nQuantidade de mouses: " + mouses.length + "\nSituação                     Quantidade                  Percentual\n" + ratos.join(""));
 }
+//23
+function bytesToMega(num) {
+    return num / (1024 * 1024)
+}
+
+function percentualDeUso(espaco, espacoTotal) {
+    return ((espaco / espacoTotal) *100)
+}
+
+function leArquivo() { 
+    let usuarios = {}
+    while (true) {
+        let usuario = prompt("Insira o nome do usuario (Insira nada para finalizar)")
+        let capacitadeEmBytes = parseInt(prompt("Informe a capacidade em bytes:"))
+        if (usuario == "") {
+            break
+        }
+        usuarios[usuario] = capacitadeEmBytes
+    }
+    return usuarios
+}
+
+function gerarRelatorio(usuarios) {
+    let relatorio = 'ACME Inc.\tUso do espaço em disco pelos usuários\n------------------------------------------------------------------------\nNr.\tUsuário\tEspaço Utilizado\t% de Uso\n'
+    let count = 0
+    let espacoTotal = 0
+
+    for (let key in usuarios) {
+        espacoTotal += bytesToMega(usuarios[key])
+    }
+
+
+    for (let key in usuarios) {
+        count += 1
+        const espacoMB = bytesToMega(usuarios[key])
+        let percentual = percentualDeUso(espacoMB, espacoTotal).toFixed(2)
+        relatorio += `${count}\t${key}\t${espacoMB.toFixed(2)} MB\t${percentual}%\n`
+    }
+    relatorio += `Espaço total ocupado: ${espacoTotal.toFixed(2)}\nEspaço médio ocupado: ${(espacoTotal/6).toFixed(2)}`
+    alert(relatorio)
+}
+
+function Principal() {
+    gerarRelatorio(leArquivo())
+}
 //#region 
-    //23
-    async function leArquivo(arquivo) {
+    //23 - versão alternativa
+    async function leArquivo2(arquivo) {
         const response = await fetch(arquivo)
         const usuariosJSON = await response.json()
         return usuariosJSON;
     }
 
-    function bytesToMega(num) {
+    function bytesToMega2(num) {
         return num / (1024 * 1024)
     }
 
-    function percentualDeUso(espaco, espacoTotal) {
+    function percentualDeUso2(espaco, espacoTotal) {
         return ((espaco / espacoTotal) *100)
     }
 
-    async function gerarRelatorio(usuariosJSON) {
+    async function gerarRelatorio2(usuariosJSON) {
         let relatorio = '<pre>ACME Inc.\tUso do espaço em disco pelos usuários\n------------------------------------------------------------------------\nNr.\tUsuário\tEspaço Utilizado\t% de Uso\n'
         let count = 0
         let espacoTotal = 0
 
         for (let key in usuariosJSON) {
-            espacoTotal += bytesToMega(usuariosJSON[key])
+            espacoTotal += bytesToMega2(usuariosJSON[key])
         }
 
 
         for (let key in usuariosJSON) {
             count += 1
-            const espacoMB = bytesToMega(usuariosJSON[key])
-            let percentual = percentualDeUso(espacoMB, espacoTotal).toFixed(2)
+            const espacoMB = bytesToMega2(usuariosJSON[key])
+            let percentual = percentualDeUso2(espacoMB, espacoTotal).toFixed(2)
             relatorio += `${count}\t${key}\t${espacoMB.toFixed(2)} MB\t${percentual}%\n`
-            console.log(percentual)
         }
         relatorio += `Espaço total ocupado: ${espacoTotal.toFixed(2)}\nEspaço médio ocupado: ${(espacoTotal/6).toFixed(2)}`
         relatorio += '</pre>'
         document.getElementById('relatorio').innerHTML = relatorio
     }
 
-    async function Principal() {
-        const usuariosJSON = await leArquivo("usuarios.txt")
-        gerarRelatorio(usuariosJSON)
+    async function Principal2() {
+        const usuariosJSON = await leArquivo2("usuarios.txt")
+        gerarRelatorio2(usuariosJSON)
     }
 //#endregion
 //#region 
